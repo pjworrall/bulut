@@ -12,10 +12,6 @@ Template.player.onCreated(function () {
 });
 
 Template.player.onRendered(function () {
-    this.sound = new Howl({
-        src: ['audio/rave_digger.mp3']
-    });
-
     // this.playBtn = ;
     // this.pauseBtn = ;
 
@@ -26,11 +22,35 @@ Template.player.helpers({
 
     position() {
         return Template.instance().position.get();
+    },
+    tracks() {
+
+        let tracks = [ {file: '25 Miles.mp3' },
+            {file: '80s_vibe.mp3'},
+            {file: 'Ain\'t No Business.mp3'},
+            {file: 'Country Boogie.mp3'},
+            {file: 'Flash Chordin\'.mp3'},
+            {file: 'graveyard.mp4'}];
+
+        return tracks;
     }
 
 });
 
 Template.player.events({
+    'click .js-open'(event, instance) {
+
+        let fileName = instance.find('select[name=track]').value;
+
+        console.log("fileName: " + fileName);
+
+        //audio/rave_digger.mp3
+
+        instance.sound = new Howl({
+            src: ['/audio/' + fileName]
+        });
+
+    },
     'click #playBtn'(event, instance) {
         instance.sound.play();
 

@@ -9,6 +9,18 @@
 
     <span class="btn fas fa-comment-dots fa-2x" id="notesBtn"></span>
 
+    <form>
+        <p>Track:</p>
+
+        <select name="track">
+            {{#each tracks}}
+                <option value="{{file}}">{{file}}</option>
+            {{/each}}
+        </select>
+
+        <button type="button" class="js-open">Open</button>
+    </form>
+
     <!-- Controls -->
     <div class="controlsOuter">
         <div class="controlsInner">
@@ -32,10 +44,10 @@
             <p>Make a note or create a relationship at position {{position}} seconds.</p>
             <p>
                 <form>
-                    <p>Note:</p>
-                    <input name="note" size="100"/>
-                    <button type="button" class="js-save">Save</button>
-                </form>
+            <p>Note:</p>
+            <input name="note" size="100"/>
+            <button type="button" class="js-save">Save</button>
+            </form>
 
             </p>
         </div>
