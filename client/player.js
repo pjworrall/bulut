@@ -21,6 +21,8 @@ Template.player.onCreated(function () {
         {file: 'Flash Chordin\'.mp3', title: "Flash Chordin'"},
         {file: 'graveyard.mp4', title: "Company Graveyard"}];
 
+    this.currentTrack = 0;
+
     // initialise file to first in list
     this.sound = new Howl({
         src: ['/audio/' + this.tracks[0].file]
@@ -62,7 +64,7 @@ Template.player.helpers({
 Template.player.events({
     'click .list-song'(event, instance) {
 
-        let trackIndex = event.target.id;
+        let trackIndex = instance.currentTrack = event.target.id;
 
         console.log("trackIndex: " + trackIndex);
 
@@ -129,6 +131,32 @@ Template.player.events({
         instance.find('#pauseBtn').style.display = 'block';
         // reveal the annotation button
         instance.find('#notesBtn').style.display = 'block';
+
+    },
+    'click #nextBtn'(event, instance) {
+
+        instance.sound.unload();
+
+        instance.currentTrack = (( instance.currentTrack + 1 ) >= instance.tracks.length ) ? 0 : instance.currentTrack + 1  ;
+
+        instance.current.set(instance.tracks[instance.currentTrack].title);
+
+        instance.sound = new Howl({
+            src: ['/audio/' + instance.tracks[instance.currentTrack].file]
+        });
+
+    },
+    'click #prevBtn'(event, instance) {
+
+        instance.sound.unload();
+
+        instance.currentTrack = (( instance.currentTrack - 1 ) < 0 ) ? instance.tracks.length -1  : instance.currentTrack - 1  ;
+
+        instance.current.set(instance.tracks[instance.currentTrack].title);
+
+        instance.sound = new Howl({
+            src: ['/audio/' + instance.tracks[instance.currentTrack].file]
+        });
 
     },
     'click #pauseBtn'(event, instance) {
