@@ -11,6 +11,9 @@ import './player.html';
 Template.player.onCreated(function () {
 
     this.position = new ReactiveVar();
+    this.duration = new ReactiveVar();
+    this.timer = new ReactiveVar();
+
     this.tracks = [ {file: '25 Miles.mp3', title: "25 Miles" },
         {file: '80s_vibe.mp3', title: "80's Vibe"},
         {file: 'Ain\'t No Business.mp3', title: "Ain\'t No Business"},
@@ -22,6 +25,7 @@ Template.player.onCreated(function () {
     this.sound = new Howl({
         src: ['/audio/' + this.tracks[0].file]
     });
+
 
     this.current = new ReactiveVar(this.tracks[0].title);
 
@@ -45,6 +49,12 @@ Template.player.helpers({
     },
     tracks() {
         return Template.instance().tracks;
+    },
+    duration() {
+        return Template.instance().duration.get();
+    },
+    timer() {
+        return Template.instance().timer.get();
     }
 
 });
@@ -83,7 +93,36 @@ Template.player.events({
 
     },
     'click #playBtn'(event, instance) {
-        instance.sound.play();
+
+        let self = this;
+
+        let sound = instance.sound;
+        sound.play();
+
+        instance.duration.set(Math.round(sound.duration()));
+
+        let timer = document.getElementById('timer');
+
+        function step() {
+            let self = this;
+
+            // Determine our current seek position.
+            let seek = Math.round( sound.seek() || 0 );
+
+            let minutes = Math.floor(seek / 60) || 0;
+            let seconds = (seek - minutes * 60) || 0;
+
+            let content = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+            timer.innerHTML = content;
+
+            // If the sound is still playing, continue stepping.
+            if (sound.playing()) {
+                requestAnimationFrame(step.bind(self));
+            }
+        }
+
+        requestAnimationFrame( step.bind(self));
 
         // hide play button
         instance.find('#playBtn').style.display = 'none';
