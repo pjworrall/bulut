@@ -9,11 +9,11 @@
 
     <span class="btn fas fa-comment-dots fa-2x" id="notesBtn"></span>
 
-    <select id="track" size="10">
+    <div id="playList">
         {{#each tracks}}
-            <option value="{{@index}}">{{title}}</option>
+            <div class="list-song" id="{{@index}}">{{title}}</div>
         {{/each}}
-    </select>
+    </div>
 
     <!-- Controls -->
     <div class="controlsOuter">
@@ -24,8 +24,8 @@
             <span class="btn fas fa-forward fa-2x" id="nextBtn"></span>
             <span class="btn fas fa-backward fa-2x" id="prevBtn"></span>
         </div>
-        <!--<span class="btn fas fa-list-alt fa-2x" id="playListBtn"></span>-->
-        <!--<span class="btn fas fa-volume-mute fa-2x" id="volumeBtn"></span>-->
+        <span class="btn fas fa-list-alt fa-2x" id="playListBtn"></span>
+        <span class="btn fas fa-volume-mute fa-2x" id="volumeBtn"></span>
     </div>
 
 

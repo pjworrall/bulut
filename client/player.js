@@ -25,6 +25,7 @@ Template.player.onCreated(function () {
 
     this.current = new ReactiveVar(this.tracks[0].title);
 
+
 });
 
 Template.player.onRendered(function () {
@@ -49,17 +50,31 @@ Template.player.helpers({
 });
 
 Template.player.events({
-    'click #track'(event, instance) {
+    'click .list-song'(event, instance) {
 
-        let trackIndex = instance.find('select[id=track]').value;
+        let trackIndex = event.target.id;
 
         console.log("trackIndex: " + trackIndex);
+
+        instance.sound.unload();
 
         instance.sound = new Howl({
             src: ['/audio/' + instance.tracks[trackIndex].file]
         });
 
         instance.current.set(instance.tracks[trackIndex].title);
+
+        instance.find('#playList').style.display = 'none';
+
+
+    },
+    'click #playListBtn'(event, instance) {
+        // show the play list
+
+        let playList = instance.find('#playList');
+
+        (playList.style.display === 'block') ?
+            playList.style.display = 'none' : playList.style.display = 'block' ;
 
     },
     'click #playBtn'(event, instance) {
