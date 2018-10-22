@@ -71,10 +71,15 @@ Template.player.events({
     'click #playListBtn'(event, instance) {
         // show the play list
 
-        let playList = instance.find('#playList');
+        let playlist = instance.find('#playList');
 
-        (playList.style.display === 'block') ?
-            playList.style.display = 'none' : playList.style.display = 'block' ;
+        let display = (playlist.style.display === 'block') ? 'none' : 'block';
+
+        setTimeout(function() {
+            playlist.style.display = display;
+        }, (display === 'block') ? 0 : 500);
+
+        playlist.className = (display === 'block') ? 'fadein' : 'fadeout';
 
     },
     'click #playBtn'(event, instance) {
