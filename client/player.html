@@ -2,24 +2,18 @@
 
     <!-- Top Info -->
     <div id="title">
-        <span id="track"></span>
+        <span id="track">{{current}}</span>
         <div id="timer">0:00</div>
         <div id="duration">0:00</div>
     </div>
 
     <span class="btn fas fa-comment-dots fa-2x" id="notesBtn"></span>
 
-    <form>
-        <p>Track:</p>
-
-        <select name="track">
-            {{#each tracks}}
-                <option value="{{file}}">{{file}}</option>
-            {{/each}}
-        </select>
-
-        <button type="button" class="js-open">Open</button>
-    </form>
+    <select id="track" size="10">
+        {{#each tracks}}
+            <option value="{{@index}}">{{title}}</option>
+        {{/each}}
+    </select>
 
     <!-- Controls -->
     <div class="controlsOuter">
@@ -43,9 +37,9 @@
             <span class="close" id="modalCloseBtn">&times;</span>
             <p>Make a note or create a relationship at position {{position}} seconds.</p>
             <p>
-                <p>Note:</p>
-                <input name="note" size="100"/>
-                <button type="button" id="modalSaveBtn">Save</button>
+            <p>Note:</p>
+            <input name="note" size="100"/>
+            <button type="button" id="modalSaveBtn">Save</button>
             </p>
         </div>
 

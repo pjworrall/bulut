@@ -9,8 +9,22 @@ import {NoteData} from "../imports/startup/client/localstore";
 import './player.html';
 
 Template.player.onCreated(function () {
-    this.sound = undefined;
+
     this.position = new ReactiveVar();
+    this.tracks = [ {file: '25 Miles.mp3', title: "25 Miles" },
+        {file: '80s_vibe.mp3', title: "80's Vibe"},
+        {file: 'Ain\'t No Business.mp3', title: "Ain\'t No Business"},
+        {file: 'Country Boogie.mp3', title: "Country Boogie"},
+        {file: 'Flash Chordin\'.mp3', title: "Flash Chordin'"},
+        {file: 'graveyard.mp4', title: "Company Graveyard"}];
+
+    // initialise file to first in list
+    this.sound = new Howl({
+        src: ['/audio/' + this.tracks[0].file]
+    });
+
+    this.current = new ReactiveVar(this.tracks[0].title);
+
 });
 
 Template.player.onRendered(function () {
@@ -25,32 +39,27 @@ Template.player.helpers({
     position() {
         return Template.instance().position.get();
     },
+    current() {
+        return Template.instance().current.get();
+    },
     tracks() {
-
-        let tracks = [ {file: '25 Miles.mp3' },
-            {file: '80s_vibe.mp3'},
-            {file: 'Ain\'t No Business.mp3'},
-            {file: 'Country Boogie.mp3'},
-            {file: 'Flash Chordin\'.mp3'},
-            {file: 'graveyard.mp4'}];
-
-        return tracks;
+        return Template.instance().tracks;
     }
 
 });
 
 Template.player.events({
-    'click .js-open'(event, instance) {
+    'click #track'(event, instance) {
 
-        let fileName = instance.find('select[name=track]').value;
+        let trackIndex = instance.find('select[id=track]').value;
 
-        console.log("fileName: " + fileName);
-
-        //audio/rave_digger.mp3
+        console.log("trackIndex: " + trackIndex);
 
         instance.sound = new Howl({
-            src: ['/audio/' + fileName]
+            src: ['/audio/' + instance.tracks[trackIndex].file]
         });
+
+        instance.current.set(instance.tracks[trackIndex].title);
 
     },
     'click #playBtn'(event, instance) {
@@ -68,10 +77,11 @@ Template.player.events({
     'click #pauseBtn'(event, instance) {
         instance.sound.pause();
 
-        // reveal the pause button
+        // hide the pause and notes button
         instance.find('#pauseBtn').style.display = 'none';
+        instance.find('#notesBtn').style.display = 'none';
 
-        // hide play button
+        // reveal play button
         instance.find('#playBtn').style.display = 'block';
     },
     'click #notesBtn'(event, instance) {
