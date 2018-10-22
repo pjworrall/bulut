@@ -112,9 +112,7 @@ Template.player.events({
             let minutes = Math.floor(seek / 60) || 0;
             let seconds = (seek - minutes * 60) || 0;
 
-            let content = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-
-            timer.innerHTML = content;
+            timer.innerHTML = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 
             // If the sound is still playing, continue stepping.
             if (sound.playing()) {
