@@ -4,6 +4,8 @@ import {Howl} from 'howler';
 
 import {ReactiveVar} from 'meteor/reactive-var';
 
+import {NoteData} from "../imports/startup/client/localstore";
+
 import './player.html';
 
 Template.player.onCreated(function () {
@@ -81,12 +83,27 @@ Template.player.events({
 
         instance.position.set(position) ;
 
-        console.log("position=" + position);
-
         instance.find('#myModal').style.display = 'block';
-
     },
     'click #modalCloseBtn'(event, instance) {
+        instance.find('#myModal').style.display = 'none';
+        instance.sound.play();
+    },
+    'click #modalSaveBtn'(event, instance) {
+
+        let seek = instance.sound.seek();
+
+        let note = instance.find('input[name=note]').value;
+
+        console.log("note:" + note);
+
+        NoteData.insert({
+            type: "Note",
+            note: note,
+            date: new Date(),
+            position: seek,
+        });
+
         instance.find('#myModal').style.display = 'none';
         instance.sound.play();
     }
