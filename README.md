@@ -53,6 +53,7 @@ Open browser on http://localhost:3000
 * Note view
 * Load and play tracks from a note
 * Show notes in view when tracks play from a note
+* Loop a sound
 
 ### Crypto Asset Features
 
@@ -64,6 +65,16 @@ Open browser on http://localhost:3000
 * Pay for use of a notes
 * Report on payments for published notes
 * Integrate with MusicBrainz
+
+### UX Features
+
+* UI lists tracks
+* Swipe right and left for play and stop respectively
+* When playing right adds note
+* Swipe up and down for forward and back a track
+* Provide wheel to wipe left and right to speed up and slow down track
+* Same controls UX on any track does the same on that track simultaneously (ie play tacks together)
+* Notes created with two tracks loaded assumes data relationship automatically
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
