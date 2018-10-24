@@ -24,7 +24,38 @@ receive payment for its use by others
 TBD
 
 ## Development
-TBD
+### Todo
+
+* Loading a _comparison_ track
+* Volume adjustment
+* Timer bug where adding a note stops timer
+* Presenting play button when skipping to next track
+* Move notes button to controls panel
+* Align controls in control panel
+* Style note modal window
+* Add RDF data support
+* Add an Ontology supporting relationships between locations on different tracks
+* Provide for two track locations to be related in the node modal window
+* Source tracks from a location on the device
+* Source tracks from a service like Spotify
+* Access track ID3 data
+* Slow down a track
+* Wind track backwards while listening to audio backwards
+* Mute
+* Note list view
+* Search notes
+* Note view
+* Load and play tracks from a note
+* Show notes in view when tracks play from a note
+
+### Crypto Asset todo's
+
+* Sign a notes
+* Publish note into a cloud service
+* Search notes in the cloud service
+* Load tracks related to notes in the cloud
+* Pay for use of a notes
+* Report on payments for published notes
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
