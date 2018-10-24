@@ -14,17 +14,23 @@ receive payment for its use by others
 ## Installation
 
 ### Requirements
-* Nodejs
-* Meteorjs
+* Nodejs v9.5.0
+* Meteorjs 1.8
 
-`$ meteor run`
+### Build
+
+`meteor install`
+
+`npm install`
 
 ## Usage
 
-TBD
+`$ meteor run`
+
+Open browser on http://localhost:3000
 
 ## Development
-### Todo
+### Planned Features
 
 * Loading a _comparison_ track
 * Volume adjustment
@@ -48,14 +54,16 @@ TBD
 * Load and play tracks from a note
 * Show notes in view when tracks play from a note
 
-### Crypto Asset todo's
+### Crypto Asset Features
 
-* Sign a notes
-* Publish note into a cloud service
-* Search notes in the cloud service
+* Digitally sign notes
+* Cloud service where notes can be published to public
+* Publish a note
+* Search notes
 * Load tracks related to notes in the cloud
 * Pay for use of a notes
 * Report on payments for published notes
+* Integrate with MusicBrainz
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
