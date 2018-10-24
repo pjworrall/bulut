@@ -11,6 +11,7 @@
     "@babel/runtime": "^7.1.2",
     "@fortawesome/fontawesome-free": "^5.4.1",
     "howler": "^2.0.15",
+    "jsmediatags": "^3.8.1",
     "meteor-node-stubs": "^0.4.1"
   },
   "meteor": {

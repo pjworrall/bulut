@@ -2,6 +2,8 @@ import {Template} from 'meteor/templating';
 
 import {Howl} from 'howler';
 
+import jsmediatags from 'jsmediatags';
+
 import {ReactiveVar} from 'meteor/reactive-var';
 
 import {NoteData} from "../imports/startup/client/localstore";
@@ -22,6 +24,8 @@ Template.player.onCreated(function () {
         {file: 'graveyard.mp4', title: "Company Graveyard"}];
 
     this.currentTrack = 0;
+
+    this.trackID3 = new ReactiveVar();
 
     // initialise file to first in list
     this.sound = new Howl({
@@ -57,6 +61,9 @@ Template.player.helpers({
     },
     timer() {
         return Template.instance().timer.get();
+    },
+    trackID3() {
+        return Template.instance().trackID3.get();
     }
 
 });
@@ -178,6 +185,24 @@ Template.player.events({
 
         instance.position.set(position) ;
 
+        // get the ID3 meta data from the track
+
+        let track = instance.tracks[instance.currentTrack].file;
+
+        console.log("http://localhost:3000/audio/" + track);
+
+        /// todo: this url will need to be derived
+
+        jsmediatags.read("http://localhost:3000/audio/" + track, {
+            onSuccess: function(tag) {
+                console.log(tag);
+                instance.trackID3.set(tag);
+            },
+            onError: function(error) {
+                console.log(':(', error.type, error.info);
+            }
+        });
+
         instance.find('#myModal').style.display = 'block';
     },
     'click #modalCloseBtn'(event, instance) {
@@ -189,8 +214,6 @@ Template.player.events({
         let seek = instance.sound.seek();
 
         let note = instance.find('input[name=note]').value;
-
-        console.log("note:" + note);
 
         NoteData.insert({
             type: "Note",

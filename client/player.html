@@ -35,6 +35,16 @@
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close" id="modalCloseBtn">&times;</span>
+            {{#with trackID3}}
+                <p>
+                    <strong>Title:</strong> {{tags.title}}
+                    <strong>Album:</strong> {{tags.album}}
+                    <strong>Artist:</strong> {{tags.artist}}
+                    <strong>Track:</strong> {{tags.track}}
+                    <strong>Genre:</strong> {{tags.genre}}
+                </p>
+            {{/with}}
+
             <p>Make a note or create a relationship at position {{position}} seconds.</p>
             <p>
             <p>Note:</p>

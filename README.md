@@ -44,8 +44,8 @@ Open browser on http://localhost:3000
 * Provide for two track locations to be related in the node modal window
 * Source tracks from a location on the device
 * Source tracks from a service like Spotify
-* Access track ID3 data
-* Slow down a track
+* Access track ID3 data https://www.npmjs.com/package/node-id3
+* Slow down a track https://github.com/goldfire/howler.js/#raterate-id
 * Wind track backwards while listening to audio backwards
 * Mute
 * Note list view
@@ -53,7 +53,7 @@ Open browser on http://localhost:3000
 * Note view
 * Load and play tracks from a note
 * Show notes in view when tracks play from a note
-* Loop a sound
+* Loop a sound https://github.com/goldfire/howler.js/#looploop-id
 
 ### Crypto Asset Features
 
