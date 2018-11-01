@@ -33,25 +33,24 @@ Open browser on http://localhost:3000
 ### Planned Features
 
 * Loading a _comparison_ track
+* Add RDF data support
+* Note list view
+* Load and play tracks from a note
+* Source tracks from a location on the device
 * Volume adjustment
 * Timer bug where adding a note stops timer
 * Presenting play button when skipping to next track
 * Move notes button to controls panel
 * Align controls in control panel
 * Style note modal window
-* Add RDF data support
 * Add an Ontology supporting relationships between locations on different tracks
 * Provide for two track locations to be related in the node modal window
-* Source tracks from a location on the device
 * Source tracks from a service like Spotify
-* Access track ID3 data https://www.npmjs.com/package/node-id3
+* ~~Access track ID3 data~~ https://www.npmjs.com/package/node-id3
 * Slow down a track https://github.com/goldfire/howler.js/#raterate-id
 * Wind track backwards while listening to audio backwards
 * Mute
-* Note list view
 * Search notes
-* Note view
-* Load and play tracks from a note
 * Show notes in view when tracks play from a note
 * Loop a sound https://github.com/goldfire/howler.js/#looploop-id
 
@@ -65,6 +64,7 @@ Open browser on http://localhost:3000
 * Pay for use of a notes
 * Report on payments for published notes
 * Integrate with MusicBrainz
+
 
 ### UX Features
 
