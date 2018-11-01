@@ -53,6 +53,8 @@ Open browser on http://localhost:3000
 * Search notes
 * Show notes in view when tracks play from a note
 * Loop a sound https://github.com/goldfire/howler.js/#looploop-id
+* frickin' good refactorin'!!
+* Integrate with MusicBrainz
 
 ### Crypto Asset Features
 

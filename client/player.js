@@ -2,11 +2,14 @@ import {Template} from 'meteor/templating';
 
 import {Howl} from 'howler';
 
+import jsonld from 'jsonld';
+
 import jsmediatags from 'jsmediatags';
 
 import {ReactiveVar} from 'meteor/reactive-var';
 
 import {NoteData} from "../imports/startup/client/localstore";
+
 
 import './player.html';
 
@@ -16,7 +19,7 @@ Template.player.onCreated(function () {
     this.duration = new ReactiveVar();
     this.timer = new ReactiveVar();
 
-    this.tracks = [ {file: '25 Miles.mp3', title: "25 Miles" },
+    this.tracks = [{file: '25 Miles.mp3', title: "25 Miles"},
         {file: '80s_vibe.mp3', title: "80's Vibe"},
         {file: 'Ain\'t No Business.mp3', title: "Ain\'t No Business"},
         {file: 'Country Boogie.mp3', title: "Country Boogie"},
@@ -94,7 +97,7 @@ Template.player.events({
 
         let display = (playlist.style.display === 'block') ? 'none' : 'block';
 
-        setTimeout(function() {
+        setTimeout(function () {
             playlist.style.display = display;
         }, (display === 'block') ? 0 : 500);
 
@@ -116,7 +119,7 @@ Template.player.events({
             let self = this;
 
             // Determine our current seek position.
-            let seek = Math.round( sound.seek() || 0 );
+            let seek = Math.round(sound.seek() || 0);
 
             let minutes = Math.floor(seek / 60) || 0;
             let seconds = (seek - minutes * 60) || 0;
@@ -129,7 +132,7 @@ Template.player.events({
             }
         }
 
-        requestAnimationFrame( step.bind(self));
+        requestAnimationFrame(step.bind(self));
 
         // hide play button
         instance.find('#playBtn').style.display = 'none';
@@ -144,7 +147,7 @@ Template.player.events({
 
         instance.sound.unload();
 
-        instance.currentTrack = (( instance.currentTrack + 1 ) >= instance.tracks.length ) ? 0 : instance.currentTrack + 1  ;
+        instance.currentTrack = ((instance.currentTrack + 1) >= instance.tracks.length) ? 0 : instance.currentTrack + 1;
 
         instance.current.set(instance.tracks[instance.currentTrack].title);
 
@@ -157,7 +160,7 @@ Template.player.events({
 
         instance.sound.unload();
 
-        instance.currentTrack = (( instance.currentTrack - 1 ) < 0 ) ? instance.tracks.length -1  : instance.currentTrack - 1  ;
+        instance.currentTrack = ((instance.currentTrack - 1) < 0) ? instance.tracks.length - 1 : instance.currentTrack - 1;
 
         instance.current.set(instance.tracks[instance.currentTrack].title);
 
@@ -183,7 +186,7 @@ Template.player.events({
 
         let position = parseFloat(Math.round(seek * 100) / 100).toFixed(2);
 
-        instance.position.set(position) ;
+        instance.position.set(position);
 
         // get the ID3 meta data from the track
 
@@ -194,11 +197,11 @@ Template.player.events({
         /// todo: this url will need to be derived
 
         jsmediatags.read("http://localhost:3000/audio/" + track, {
-            onSuccess: function(tag) {
+            onSuccess: function (tag) {
                 console.log(tag);
                 instance.trackID3.set(tag);
             },
-            onError: function(error) {
+            onError: function (error) {
                 console.log(':(', error.type, error.info);
             }
         });
@@ -215,12 +218,50 @@ Template.player.events({
 
         let note = instance.find('input[name=note]').value;
 
-        NoteData.insert({
-            type: "Note",
-            note: note,
-            date: new Date(),
-            position: seek,
+        // I want to use JSON-LD here when the object is saved
+
+        // the context will leverage the Ontologies:
+        // http://purl.org/ontology/mo/
+        // http://purl.org/ontology/chord/
+
+        // Class candidates - mo:Event, mo:Activity,mo:Instrument, mo:Movement
+        // mo:MusicArtist, mo:Sound, mo:Track, mo:MusicalExpression,
+
+        // Property candidates - mo:duration, mo:musicbrainz
+        // mo:produced_sound, mo:similar_to, mo:time, time:TemporalEntity
+
+
+        let context = {
+            "mo": "http://purl.org/ontology/mo/",
+            "dc": "http://purl.org/dc/elements/1.1/",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "tl": "http://purl.org/NET/c4dm/timeline.owl#",
+            "event": "http://purl.org/NET/c4dm/event.owl#",
+            "foaf": "http://xmlns.com/foaf/0.1/",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "mn": "http://interition.net/MN/2018/01/"
+        };
+
+        let time = {
+          "a": "tl:Interval",
+          "tl:at":  seek
+            // needs tl:duration eg. "PT1H"^^xsd:duration;
+        };
+
+        let record = {
+            "event": { "event:time": time },
+            "mn:note": { "@type": "mn:text", "@value":  note },
+            "mn:date": new Date()
+        };
+
+       // print out the RDF
+
+        jsonld.compact(record, context, function(err, compacted) {
+            console.log(JSON.stringify(compacted, null, 2));
         });
+
+        // store the note record
+        NoteData.insert(record);
 
         instance.find('#myModal').style.display = 'none';
         instance.sound.play();
