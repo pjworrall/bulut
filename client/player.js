@@ -142,6 +142,10 @@ Template.player.events({
         // reveal the annotation button
         instance.find('#notesBtn').style.display = 'block';
 
+        // hide track list button
+        instance.find('#playListBtn').style.display = 'none';
+
+
     },
     'click #nextBtn'(event, instance) {
 
@@ -178,6 +182,8 @@ Template.player.events({
 
         // reveal play button
         instance.find('#playBtn').style.display = 'block';
+        // reveal track list button
+        instance.find('#playListBtn').style.display = 'block';
     },
     'click #notesBtn'(event, instance) {
         instance.sound.pause();

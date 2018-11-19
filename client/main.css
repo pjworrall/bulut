@@ -97,14 +97,6 @@ body {
     margin: 0 -170px;
     display: none;
 }
-#notesBtn {
-    width: 35px;
-    height: 35px;
-    top: 10%;
-    right: 50%;
-    margin: -17.5px auto;
-    display: none;
-}
 #playBtn {
   width: 69px;
   height: 70px;
@@ -121,14 +113,14 @@ body {
 #prevBtn {
   width: 35px;
   height: 35px;
-  left: 10%;
+  left: 25%;
   top: 30%;
   margin: -17.5px auto;
 }
 #nextBtn {
   width: 35px;
   height: 35px;
-  right: 10%;
+  right: 25%;
   top: 30%;
   margin: -17.5px auto;
 }
@@ -140,10 +132,18 @@ body {
   left: 3%;
   margin: -17.5px auto;
 }
+#notesBtn {
+  width: 35px;
+  height: 35px;
+  top: 29%;
+  left: 0%;
+  margin: -17.5px auto;
+  display: none;
+}
 #volumeBtn {
   width: 35px;
   height: 35px;
-  top: 50%;
+  top: 25%;
   right: 3%;
   margin: -17.5px auto;
 }
