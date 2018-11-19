@@ -38,6 +38,8 @@ Template.player.onCreated(function () {
 
     this.current = new ReactiveVar(this.tracks[0].title);
 
+    this.muted = false;
+
 
 });
 
@@ -184,6 +186,26 @@ Template.player.events({
         instance.find('#playBtn').style.display = 'block';
         // reveal track list button
         instance.find('#playListBtn').style.display = 'block';
+    },
+    'click #volumeMuteBtn'(event, instance) {
+
+        // hide the mute button
+        instance.find('#volumeMuteBtn').style.display = 'none';
+        // reveal the volume button
+        instance.find('#volumeUpBtn').style.display = 'block';
+        instance.sound.mute(true);
+
+        instance.muted = !instance.muted ;
+    },
+    'click #volumeUpBtn'(event, instance) {
+
+        // hide the mute button
+        instance.find('#volumeMuteBtn').style.display = 'block';
+        // reveal the volume button
+        instance.find('#volumeUpBtn').style.display = 'none';
+        instance.sound.mute(false);
+
+        instance.muted = !instance.muted ;
     },
     'click #notesBtn'(event, instance) {
         instance.sound.pause();

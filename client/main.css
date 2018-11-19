@@ -140,12 +140,21 @@ body {
   margin: -17.5px auto;
   display: none;
 }
-#volumeBtn {
+#volumeMuteBtn {
   width: 35px;
   height: 35px;
   top: 25%;
   right: 3%;
   margin: -17.5px auto;
+}
+
+#volumeUpBtn {
+  width: 35px;
+  height: 35px;
+  top: 25%;
+  right: 3%;
+  margin: -17.5px auto;
+  display: none;
 }
 
 /* Progress */
