@@ -33,6 +33,7 @@ Open browser on http://localhost:3000
 ### Planned Features
 
 * Loading a _comparison_ track
+* Save the notes to a Solid Pod
 * Add RDF data support
 * Note list view
 * Load and play tracks from a note
