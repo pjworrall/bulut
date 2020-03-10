@@ -19,8 +19,6 @@ receive payment for its use by others
 
 ### Build
 
-`meteor install`
-
 `npm install`
 
 ## Usage
